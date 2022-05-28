@@ -2,6 +2,7 @@ import sharp = require('sharp');
 import log from '../utilities/log';
 import * as fs from 'fs';
 import { PATH } from '../constants/path';
+import { readdir } from 'node:fs/promises';
 
 interface ResizeServiceModel {
 	source: string;
@@ -21,7 +22,7 @@ class ImageServices {
 		this.onCacheInit();
 	}
 
-	private onCacheInit() : void {
+	private onCacheInit(): void {
 		fs.mkdir(`${PATH.ROOT}/.cache`, { recursive: true }, (error) => {
 			if (error) {
 				log.error(
@@ -85,6 +86,23 @@ class ImageServices {
 			log.info('ImageServices.isResized()', 'Image found in cache!');
 		}
 		return bool;
+	}
+
+	public async isImageExist(name: string): Promise<boolean | void> {
+		try {
+			const files = await readdir(PATH.IMAGE_FOLDER_FULL);
+			const found = files.find((image: string) => image.includes(name));
+			return Boolean(found);
+		} catch (error) {
+			log.error('ImageServices.isImageExist()', error);
+		}
+	}
+
+	public async isValidNumber(num: unknown): Promise<boolean | void> {
+		if (isNaN(<number>num)) {
+			return false;
+		}
+		return <number>num > 0;
 	}
 }
 

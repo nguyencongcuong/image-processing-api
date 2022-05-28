@@ -7,7 +7,7 @@ describe('ImagesController', () => {
 	describe('.resize()', () => {
 		it('should resize the image and save to ./public/images/thumb with correct name, width, height respectively', async () => {
 			// Arrange
-			const req  = {
+			const req = {
 				query: {
 					name: 'fjord',
 					width: '300',
@@ -21,7 +21,10 @@ describe('ImagesController', () => {
 			const { name, width, height } = req.query;
 
 			// Act
-			await ImagesController.resize(<Request><unknown>req, <Response><unknown>res);
+			await ImagesController.resize(
+				<Request>(<unknown>req),
+				<Response>(<unknown>res)
+			);
 			const resizedImages = fs.readdirSync(PATH.IMAGE_FOLDER_THUMB);
 
 			// Assert
