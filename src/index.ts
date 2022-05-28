@@ -8,6 +8,6 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(routes);
 
-app.listen(port, () => console.log(`Listening on port ${port}`));
+app.listen(port, async (): Promise<void> => console.log(`Listening on port ${port}`));
 
 export default app;

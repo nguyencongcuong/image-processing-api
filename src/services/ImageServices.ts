@@ -10,7 +10,7 @@ interface ResizeServiceModel {
 	height: number;
 }
 
-interface CacheServiceModel {
+export interface CacheServiceModel {
 	name: string;
 	width: string;
 	height: string;
@@ -21,7 +21,7 @@ class ImageServices {
 		this.onCacheInit();
 	}
 
-	private onCacheInit() {
+	private onCacheInit() : void {
 		fs.mkdir(`${PATH.ROOT}/.cache`, { recursive: true }, (error) => {
 			if (error) {
 				log.error(
