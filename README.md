@@ -5,7 +5,9 @@ This is an Image Processing API. The project was built as an assignment in Udaci
     "start": "npm run clean && nodemon ./src/index.ts",
     "build": "npm run clean && npx tsc",
     "clean": "rimraf dist/ public/images/thumb/* .cache",
-    "test": "npm run build && npx jasmine"
+    "test": "npm run build && npx jasmine",
+    "eslint": "npx eslint src/* --ext .ts",
+    "prettier": "npx prettier --write src/**/*.ts"
 
 ## LOCAL SERVER
 
