@@ -38,6 +38,9 @@ class ImageServices {
 	}
 
 	public async resize(params: ResizeServiceModel): Promise<void> {
+		fs.mkdir(PATH.IMAGE_FOLDER_THUMB, { recursive: true }, (err) =>
+			log.error('imageServices.resize()', err)
+		);
 		try {
 			await sharp(params.source)
 				.resize(params.width, params.height)
@@ -75,9 +78,14 @@ class ImageServices {
 
 	public async isResized(params: CacheServiceModel): Promise<boolean | void> {
 		try {
-			const cache = await readFile(PATH.CACHE_FOLDER + '/resized-images.txt', {flag: 'a+'});
-			const isCached = cache.includes(`${params.name}-${params.width}x${params.height}.jpg`);
-			isCached && log.info('ImageServices.isResized()', 'Image found in cache!');
+			const cache = await readFile(PATH.CACHE_FOLDER + '/resized-images.txt', {
+				flag: 'a+',
+			});
+			const isCached = cache.includes(
+				`${params.name}-${params.width}x${params.height}.jpg`
+			);
+			isCached &&
+				log.info('ImageServices.isResized()', 'Image found in cache!');
 			return isCached;
 		} catch (error) {
 			log.error('imageServices.isResized()', 'Cannot check image cache!');
