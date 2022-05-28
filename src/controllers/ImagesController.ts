@@ -15,7 +15,7 @@ class ImagesController {
 		const isImageExist = await imageServices.isImageExist(<string>name);
 		const isValidWidth = await imageServices.isValidNumber(width);
 		const isValidHeight = await imageServices.isValidNumber(height);
-		const isResized = imageServices.isResized(<CacheServiceModel>{
+		const isResized = await imageServices.isResized(<CacheServiceModel>{
 			name,
 			width,
 			height,

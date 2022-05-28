@@ -2,7 +2,7 @@ import sharp = require('sharp');
 import log from '../utilities/log';
 import * as fs from 'fs';
 import { PATH } from '../constants/path';
-import { readdir } from 'node:fs/promises';
+import { readdir, readFile } from 'node:fs/promises';
 
 interface ResizeServiceModel {
 	source: string;
@@ -73,19 +73,15 @@ class ImageServices {
 		);
 	}
 
-	public isResized(params: CacheServiceModel): boolean {
-		const data = fs
-			.readFileSync(PATH.CACHE_FOLDER + '/resized-images.txt', {
-				flag: 'a+',
-			})
-			.toString();
-		const bool = data.includes(
-			`${params.name}-${params.width}x${params.height}.jpg`
-		);
-		if (bool) {
-			log.info('ImageServices.isResized()', 'Image found in cache!');
+	public async isResized(params: CacheServiceModel): Promise<boolean | void> {
+		try {
+			const cache = await readFile(PATH.CACHE_FOLDER + '/resized-images.txt', {flag: 'a+'});
+			const isCached = cache.includes(`${params.name}-${params.width}x${params.height}.jpg`);
+			isCached && log.info('ImageServices.isResized()', 'Image found in cache!');
+			return isCached;
+		} catch (error) {
+			log.error('imageServices.isResized()', 'Cannot check image cache!');
 		}
-		return bool;
 	}
 
 	public async isImageExist(name: string): Promise<boolean | void> {

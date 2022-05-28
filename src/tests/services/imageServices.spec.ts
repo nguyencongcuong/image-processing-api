@@ -51,23 +51,24 @@ describe('imageServices:', () => {
 		const width = '500';
 		const height = '500';
 		const resizedImageName = `${name}-${width}x${height}.jpg`;
+
 		fs.writeFileSync(
 			`${PATH.CACHE_FOLDER}/resized-images.txt`,
 			resizedImageName,
 			{ flag: 'a+' }
 		);
 
-		it('should return true if the image is cached', () => {
+		it('should return true if the image is cached', async () => {
 			// Act
-			const result = imageServices.isResized({ name, width, height });
+			const result = await imageServices.isResized({ name, width, height });
 
 			// Assert
 			expect(result).toEqual(true);
 		});
 
-		it('should return false if the image has not been cached yet', () => {
+		it('should return false if the image has not been cached yet', async () => {
 			// Act
-			const result = imageServices.isResized({
+			const result = await imageServices.isResized({
 				name: 'fjord',
 				width,
 				height,
