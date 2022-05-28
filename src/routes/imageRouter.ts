@@ -5,4 +5,4 @@ const router = express.Router();
 
 router.get('/size', imageController.resize);
 
-export default router
+export default router;

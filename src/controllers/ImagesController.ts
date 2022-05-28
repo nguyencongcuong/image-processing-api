@@ -4,10 +4,8 @@ import { PATH } from '../constants/path';
 import log from '../utilities/log';
 
 class ImagesController {
-
 	// [GET] ./images/size
 	public async resize(req, res) {
-
 		const { name, width, height } = req.query;
 
 		const allImages = fs.readdirSync(PATH.IMAGE_FOLDER_FULL);
@@ -16,13 +14,12 @@ class ImagesController {
 		const outputPath = `${PATH.IMAGE_FOLDER_THUMB}/${name}-${width}x${height}.jpg`;
 
 		if (!image) {
-			log.error('ImagesController.resize()', 'Image not found!')
-			res.sendStatus(404)
-		} else if(imageServices.isResized({name, width, height})) {
+			log.error('ImagesController.resize()', 'Image not found!');
+			res.sendStatus(404);
+		} else if (imageServices.isResized({ name, width, height })) {
 			res.sendFile(outputPath);
 		} else {
 			try {
-
 				await imageServices.resize({
 					source: inputPath,
 					target: outputPath,
@@ -30,12 +27,18 @@ class ImagesController {
 					height: Number(height),
 				});
 
-				await imageServices.addToCache({name, width, height})
+				await imageServices.addToCache({ name, width, height });
 
 				res.sendFile(outputPath);
 			} catch (error) {
-				log.error('ImagesController.resize()', 'Resize failed. Check your query!')
-				res.send({ success: false, message: `Resize failed. Check your query!` });
+				log.error(
+					'ImagesController.resize()',
+					'Resize failed. Check your query!'
+				);
+				res.send({
+					success: false,
+					message: 'Resize failed. Check your query!',
+				});
 			}
 		}
 	}

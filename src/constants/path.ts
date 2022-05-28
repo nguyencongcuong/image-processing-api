@@ -5,4 +5,4 @@ export const PATH = {
 	IMAGE_FOLDER_THUMB: path.normalize(`${__dirname}/../../public/images/thumb`),
 	CACHE_FOLDER: path.normalize(`${__dirname}/../../.cache`),
 	ROOT: path.normalize(`${__dirname}/../../`),
-}
+};

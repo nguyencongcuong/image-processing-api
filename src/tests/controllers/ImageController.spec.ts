@@ -5,7 +5,6 @@ import { PATH } from '../../constants/path';
 describe('ImagesControllder', () => {
 	describe('.resize()', () => {
 		it('should resize the image and save to ./public/images/thumb with correct name, width, height respectively', async () => {
-
 			// Arrange
 			const req = {
 				query: {
@@ -15,7 +14,7 @@ describe('ImagesControllder', () => {
 				},
 			};
 			const res = {
-				send: () => 'message'
+				send: () => 'message',
 			};
 			const { name, width, height } = req.query;
 
@@ -24,8 +23,9 @@ describe('ImagesControllder', () => {
 			const resizedImages = fs.readdirSync(PATH.IMAGE_FOLDER_THUMB);
 
 			// Assert
-			expect(resizedImages.includes(`${name}-${width}x${height}.jpg`)).toBe(true);
+			expect(resizedImages.includes(`${name}-${width}x${height}.jpg`)).toBe(
+				true
+			);
 		});
-
 	});
 });
