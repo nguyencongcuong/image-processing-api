@@ -7,9 +7,11 @@ interface PathModel {
 	CACHE_FOLDER: string;
 }
 
+const ROOT = path.resolve('./');
+
 export const PATH: PathModel = {
-	ROOT: path.normalize(`${__dirname}/../../`),
-	IMAGE_FOLDER_FULL: path.normalize(`${__dirname}/../../public/images/full`),
-	IMAGE_FOLDER_THUMB: path.normalize(`${__dirname}/../../public/images/thumb`),
-	CACHE_FOLDER: path.normalize(`${__dirname}/../../.cache`),
+	ROOT,
+	IMAGE_FOLDER_FULL: path.join(ROOT, './public/images/full'),
+	IMAGE_FOLDER_THUMB: path.join(ROOT, './public/images/thumb'),
+	CACHE_FOLDER: path.join(ROOT, '.cache/'),
 };
