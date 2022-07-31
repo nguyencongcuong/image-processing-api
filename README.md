@@ -58,3 +58,5 @@ http://localhost:3000/images/resize
 - Accepted query for `height`: > 0
 - Only support `.jpg` format
 - Should start the service with NodeJS from `v16.x`
+
+#GET_PASSES_THIS_REPO_UDACITY_PLEASE
